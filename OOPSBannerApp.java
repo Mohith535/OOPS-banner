@@ -1,10 +1,10 @@
 /**
- * OOPS Banner App - UC4
+ * OOPS Banner App - UC5
  *
- * Displays OOPS banner using String array and loop
+ * Displays OOPS banner using array initialization with String.join()
  *
  * @author Mohith
- * @version 4.0
+ * @version 5.0
  */
 public class OOPSBannerApp {
 
