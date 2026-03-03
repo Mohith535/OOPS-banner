@@ -1,68 +1,97 @@
 /**
- * OOPS Banner App - UC6
+ * OOPS Banner App - UC7
  *
- * Uses static helper methods to generate character patterns
+ * Stores character patterns using a dedicated static inner class
  *
  * @author Mohith
- * @version 6.0
+ * @version 7.0
  */
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        String[] O = getO();
-        String[] P = getP();
-        String[] S = getS();
+        Map<Character, CharacterPatternMap> patternMap = initializePatterns();
 
-        // Build final OOPS banner line by line
-        String[] banner = new String[7];
+        String word = "OOPS";
+        StringBuilder[] banner = new StringBuilder[7];
 
         for (int i = 0; i < 7; i++) {
-            banner[i] = String.join("   ", O[i], O[i], P[i], S[i]);
+            banner[i] = new StringBuilder();
         }
 
-        // Print banner
-        for (String line : banner) {
+        for (char ch : word.toCharArray()) {
+
+            CharacterPatternMap pattern = patternMap.get(ch);
+
+            for (int i = 0; i < 7; i++) {
+                banner[i].append(pattern.getPattern()[i]).append("   ");
+            }
+        }
+
+        for (StringBuilder line : banner) {
             System.out.println(line);
         }
     }
 
-    // Static method for O
-    static String[] getO() {
-        return new String[] {
-            " ***** ",
-            "*     *",
-            "*     *",
-            "*     *",
-            "*     *",
-            "*     *",
-            " ***** "
-        };
+    // Initialize character patterns
+    private static Map<Character, CharacterPatternMap> initializePatterns() {
+
+        Map<Character, CharacterPatternMap> map = new HashMap<>();
+
+        map.put('O', new CharacterPatternMap('O', new String[]{
+                " ***** ",
+                "*     *",
+                "*     *",
+                "*     *",
+                "*     *",
+                "*     *",
+                " ***** "
+        }));
+
+        map.put('P', new CharacterPatternMap('P', new String[]{
+                " ***** ",
+                "*     *",
+                "*     *",
+                " ***** ",
+                "*      ",
+                "*      ",
+                "*      "
+        }));
+
+        map.put('S', new CharacterPatternMap('S', new String[]{
+                " ***** ",
+                "*      ",
+                "*      ",
+                " ***** ",
+                "      *",
+                "      *",
+                " ***** "
+        }));
+
+        return map;
     }
 
-    // Static method for P
-    static String[] getP() {
-        return new String[] {
-            " ***** ",
-            "*     *",
-            "*     *",
-            " ***** ",
-            "*      ",
-            "*      ",
-            "*      "
-        };
-    }
+    // Static Inner Class
+    static class CharacterPatternMap {
 
-    // Static method for S
-    static String[] getS() {
-        return new String[] {
-            " ***** ",
-            "*      ",
-            "*      ",
-            " ***** ",
-            "      *",
-            "      *",
-            " ***** "
-        };
+        private char character;
+        private String[] pattern;
+
+        public CharacterPatternMap(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        public char getCharacter() {
+            return character;
+        }
+
+        public String[] getPattern() {
+            return pattern;
+        }
     }
 }
